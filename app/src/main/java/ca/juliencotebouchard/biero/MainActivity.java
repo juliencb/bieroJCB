@@ -1,6 +1,7 @@
-package ca.juliencotebouchard.biero;
+// tutoriel à fait par Hisham Muneer
+// https://www.youtube.com/watch?v=X2mY3zfAMfM
 
-// tutoriel à https://www.youtube.com/watch?v=X2mY3zfAMfM
+package ca.juliencotebouchard.biero;
 
 //importation des modules
         import java.io.BufferedReader;
