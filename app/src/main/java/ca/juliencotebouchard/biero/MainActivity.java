@@ -139,6 +139,7 @@ public class MainActivity extends ActionBarActivity {
 
         }
 
+        // ETAPE 3
         //quand tout est télécharger et mis dans le modèle
         @Override
         protected void onPostExecute( List<BiereModel> result) {
