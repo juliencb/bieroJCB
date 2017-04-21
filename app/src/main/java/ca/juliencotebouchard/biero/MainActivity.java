@@ -69,7 +69,9 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-
+    //ETAPE 1
+    //telecharge le json dans le background
+    // et envoi le data dans onPostExecute
     private class RestOperation extends AsyncTask<String, String, List<BiereModel>> {
 
         @Override
@@ -144,6 +146,7 @@ public class MainActivity extends ActionBarActivity {
             // TODO doit mettre le data dans la liste
 
             BiereAdapter adapter = new BiereAdapter(getApplicationContext(), R.layout.ligne, result);
+            //la partie du layout qui prend la liste se fait remplir par l'adapter ici
             lvBieres.setAdapter(adapter);
 
 
@@ -154,8 +157,8 @@ public class MainActivity extends ActionBarActivity {
 
     public class BiereAdapter extends ArrayAdapter{
 
-        //quelque chose de très flou
-        public List<BiereModel> biereModelList;
+        //fait une liste de BiereModel
+        private List<BiereModel> biereModelList;
         private int resource;
         private LayoutInflater inflater;
         public BiereAdapter( Context context,  int resource,  List<BiereModel> objects) {
@@ -165,10 +168,10 @@ public class MainActivity extends ActionBarActivity {
             inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         }
 
-
+        // cette fonction se fait appeler automatiquement le nombre de fois qu'il y a d'item, à chaque itération, le "position" changera
         @Override
         public View getView(int position,  View convertView,  ViewGroup parent) {
-
+            //met mon layout "ligne" dans convertView
             if(convertView==null){
                 convertView=inflater.inflate(resource, null);
             }
@@ -192,7 +195,6 @@ public class MainActivity extends ActionBarActivity {
 
             //met une image ou un symbole de téléchargement si elle n'est pas encore téléchargé
             ImageLoader.getInstance().displayImage(biereModelList.get(position).getImage(), ivBiereIcon, new ImageLoadingListener() {
-                //   ImageLoader.getInstance().displayImage("http://findicons.com/files/icons/85/kids/128/thumbnail.png", ivBiereIcon, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String imageUri, View view) {
                     progressBar.setVisibility(View.VISIBLE);
@@ -213,7 +215,7 @@ public class MainActivity extends ActionBarActivity {
                     progressBar.setVisibility(View.GONE);
 
                 }
-            }); // Default options will be used
+            });
 
             //rempli le modèle
             tvNomBiere.setText(biereModelList.get(position).getNom());
@@ -223,6 +225,7 @@ public class MainActivity extends ActionBarActivity {
             rbNote.setRating(Float.parseFloat(biereModelList.get(position).getMoyenne())/2);
             tvDescription.setText(biereModelList.get(position).getDescription());
 
+            //retourne le modèle "ligne" rempli avec du data venu du service
             return convertView;
         }
     }
